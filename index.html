@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <style>
+        .stars {
+            display: inline-block;
+            font-size: 30px;
+            color: gray;
+        }
+        .stars:hover{
+            cursor: pointer;
+        }
+        .stars.active {
+            color: gold;
+        }
+        #percentage {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #chart {
+            width: 200px;
+            height: 20px;
+            background-color: lightgray;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        #fill {
+            height: 100%;
+            background-color: gold;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="star1">&#9733;</div>
+    <div class="stars" id="star2">&#9733;</div>
+    <div class="stars" id="star3">&#9733;</div>
+    <div class="stars" id="star4">&#9733;</div>
+    <div class="stars" id="star5">&#9733;</div>
+    <div id="percentage"></div>
+    <div id="chart">
+        <div id="fill"></div>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.stars');
+        let totalClicked = 0;
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const clickedIndex = parseInt(star.id.replace('star', ''));
+                totalClicked = clickedIndex;
+                stars.forEach((s, index) => {
+                    if (index < clickedIndex) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+                calculatePercentage();
+            });
+        });
+        function calculatePercentage() {
+            const percentage = (totalClicked / 5) * 100;
+            document.getElementById('percentage').innerText = `Natija ${percentage}%`;
+            document.getElementById('fill').style.width = `${percentage}%`;
+        }
+    </script>
+</body>
+</html>
